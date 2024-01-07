@@ -1,4 +1,5 @@
-﻿using HelperLibrary.Models.Base;
+﻿using DatabaseService.Data;
+using HelperLibrary.Models.Base;
 
 using Microsoft.Extensions.Logging;
 using System;
@@ -11,11 +12,13 @@ namespace ProcessingService.Processing.v1;
 
 public partial class Processing : IProcessing
 {
-    private readonly ILogger _logger;
+    private readonly ILogger<Processing> _logger;
+    private readonly IDatabase _database;
 
-    public Processing(ILogger<Processing> logger)
+    public Processing(ILogger<Processing> logger, IDatabase database)
     {
         _logger = logger;
+        _database = database;
     }
 
 }

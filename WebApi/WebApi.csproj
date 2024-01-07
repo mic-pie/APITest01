@@ -23,6 +23,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\DatabaseService\DatabaseService.csproj" />
 		<ProjectReference Include="..\ModelsLibrary\HelperLibrary.csproj" />
 		<ProjectReference Include="..\ProcessingService\ProcessingService.csproj" />
 	</ItemGroup>

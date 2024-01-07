@@ -1,6 +1,8 @@
 using ProcessingService.Processing.v1;
 using ProcessingService.Processing;
 using Serilog;
+using DatabaseService.Data.v1;
+using DatabaseService.Data;
 
 internal class Program
 {
@@ -14,6 +16,7 @@ internal class Program
         builder.Services.AddSwaggerGen();
 
         builder.Services.AddTransient<IProcessing, Processing>();
+        builder.Services.AddTransient<IDatabase, Database>();
 
         var logger = new LoggerConfiguration()
             .ReadFrom.Configuration(builder.Configuration)

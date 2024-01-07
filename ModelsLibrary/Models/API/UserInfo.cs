@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
+
+using HelperLibrary.Helpers;
 
 namespace HelperLibrary.Models.API;
 
@@ -19,6 +22,10 @@ public class UserInfo
         {
             errors.Add("Email", "Email is required");
         }
+        else if (!Mailing.IsEmailValid(Email))
+        {
+            errors.Add("Email", "Email is not valid");
+        }
 
         if (string.IsNullOrWhiteSpace(Id))
         {
@@ -27,4 +34,5 @@ public class UserInfo
 
         return errors.Count <= 1;
     }
+
 }

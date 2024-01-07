@@ -18,7 +18,7 @@ public partial class Processing
         try
         {
             // Check if user exists in DB
-            UserModel userModel = new() { Id=user.Id, Email=user.Email};
+            UserModel? userModel = _database.User_Find(user);
 
             return userModel;
         }
@@ -35,7 +35,7 @@ public partial class Processing
         try
         {
             // Find User in DB
-            UserModel userModel = new();
+            UserModel? userModel = _database.User_Get(userId);
 
             return userModel;
         }

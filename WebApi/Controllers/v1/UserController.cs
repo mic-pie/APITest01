@@ -12,10 +12,10 @@ namespace WebApi.Controllers.v1;
 [ApiController, Route("api/[controller]")]
 public class UserController : Controller
 {
-    private readonly ILogger _logger;
+    private readonly ILogger<UserController> _logger;
     private readonly IProcessing _processing;
 
-    public UserController(ILogger logger, IProcessing processing)
+    public UserController(ILogger<UserController> logger, IProcessing processing)
     {
         _logger = logger;
         _processing = processing;
