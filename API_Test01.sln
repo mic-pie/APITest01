@@ -7,6 +7,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi", "WebApi\WebApi.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelperLibrary", "ModelsLibrary\HelperLibrary.csproj", "{C337EA83-7C4C-473E-94D5-20F4AB118D4F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProcessingService", "ProcessingService\ProcessingService.csproj", "{D44A40BC-0E88-46B3-B2CB-43700747FA9A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6456BDF1-E411-4F83-900B-C6DDF9F9507F}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +28,10 @@ Global
 		{C337EA83-7C4C-473E-94D5-20F4AB118D4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C337EA83-7C4C-473E-94D5-20F4AB118D4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C337EA83-7C4C-473E-94D5-20F4AB118D4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D44A40BC-0E88-46B3-B2CB-43700747FA9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D44A40BC-0E88-46B3-B2CB-43700747FA9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D44A40BC-0E88-46B3-B2CB-43700747FA9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D44A40BC-0E88-46B3-B2CB-43700747FA9A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

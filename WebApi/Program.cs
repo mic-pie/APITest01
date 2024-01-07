@@ -1,3 +1,7 @@
+using ProcessingService.Processing.v1;
+using ProcessingService.Processing;
+using Serilog;
+
 internal class Program
 {
     private static void Main(string[] args)
@@ -8,6 +12,16 @@ internal class Program
 
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
+
+        builder.Services.AddTransient<IProcessing, Processing>();
+
+        var logger = new LoggerConfiguration()
+            .ReadFrom.Configuration(builder.Configuration)
+            .Enrich.FromLogContext()
+            .CreateLogger();
+
+        builder.Logging.ClearProviders();
+        builder.Logging.AddSerilog(logger);
 
         var app = builder.Build();
 
