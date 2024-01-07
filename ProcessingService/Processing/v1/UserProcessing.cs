@@ -13,19 +13,36 @@ namespace ProcessingService.Processing.v1;
 
 public partial class Processing
 {
-    public UserModel? User_Get(UserInfo user)
+    public UserModel? User_Find(UserInfo user)
     {
         try
         {
-            UserModel userModel = new UserModel();
+            // Check if user exists in DB
+            UserModel userModel = new() { Id=user.Id, Email=user.Email};
 
             return userModel;
         }
         catch(Exception ex)
         {
-            _logger.LogError(ex, "Error in GetUser");
+            _logger.LogError(ex, "Error in User_Find");
             return null;
         }
 
+    }
+
+    public UserModel? User_Get(string userId)
+    {
+        try
+        {
+            // Find User in DB
+            UserModel userModel = new();
+
+            return userModel;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error in User_Get");
+            return null;
+        }
     }
 }

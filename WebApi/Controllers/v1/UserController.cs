@@ -21,9 +21,9 @@ public class UserController : Controller
         _processing = processing;
     }
 
-    [HttpGet]
+    [HttpPost]
     [Consumes(MediaTypeNames.Application.Json)]
-    public IActionResult GetUser([FromBody] UserInfo user)
+    public IActionResult FindUser([FromBody] UserInfo user)
     {
         try
         {
@@ -34,7 +34,7 @@ public class UserController : Controller
             }
 
             // Process
-            UserModel? result  = _processing.User_Get(user);
+            UserModel? result = _processing.User_Find(user);
 
             // Result
             return Ok(result);
@@ -45,5 +45,33 @@ public class UserController : Controller
             return StatusCode(500, ex.Message);
         }
     }
+
+
+    [HttpGet("{userId}")]
+    public IActionResult GetUserById(string userId)
+    {
+        try
+        {
+            if (string.IsNullOrWhiteSpace(userId))
+            {
+                return BadRequest("User ID is required.");
+            }
+
+            UserModel? result = _processing.User_Get(userId);
+
+            if (result == null)
+            {
+                return NotFound($"User with ID {userId} not found.");
+            }
+
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error in {EndpointName} for User ID: {UserId}", "GetUserById", userId);
+            return StatusCode(500, "Internal Server Error");
+        }
+    }
+
 
 }

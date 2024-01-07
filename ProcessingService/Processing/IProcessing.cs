@@ -6,7 +6,8 @@ namespace ProcessingService.Processing;
 public interface IProcessing
 {
     #region User
-    UserModel? User_Get(UserInfo user);
+    UserModel? User_Find(UserInfo user);
+    UserModel? User_Get(string userId);
 
     #endregion
 
