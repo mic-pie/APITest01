@@ -1,5 +1,5 @@
-﻿using HelperLibrary.Models.API;
-using HelperLibrary.Models.Base;
+﻿using HelperLibrary.Models.v1.API;
+using HelperLibrary.Models.v1.DB;
 
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,22 +27,30 @@ public class UserController : Controller
     {
         try
         {
-            // Validate incoming data
-            if (user.IsValid(out Dictionary<string, string> errors) == false)
+            // Validate
+            if (user.IsValid(out List<Error> errors) == false)
             {
-                return BadRequest(Helpers.APIResponseProcessing.BuildModelStateDictionary(errors));
+                APIResponse resp = new(400, errors);
+                return BadRequest(resp);
             }
 
             // Process
             UserModel? result = _processing.User_Find(user);
 
             // Result
-            return Ok(result);
+            if (result == null)
+            {
+                APIResponse resp = new(404, "User", $"User not found.");
+                return NotFound(resp);
+            }
+
+            APIResponse response = new(200, result);
+            return Ok(response);
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "GenerateTrainingCertificates");
-            return StatusCode(500, ex.Message);
+            return StatusCode(500, "Internal Server Error");
         }
     }
 
@@ -52,26 +60,68 @@ public class UserController : Controller
     {
         try
         {
+            // Validate
             if (string.IsNullOrWhiteSpace(userId))
             {
-                return BadRequest("User ID is required.");
+                APIResponse resp = new(400, "ID", "User ID required.");
+                return BadRequest(resp);
             }
 
+            // Process
             UserModel? result = _processing.User_Get(userId);
 
+            // Result
             if (result == null)
             {
-                return NotFound($"User with ID {userId} not found.");
+                APIResponse resp = new(404, "User", $"User with ID '{userId}' not found.");
+                return NotFound(resp);
             }
 
-            return Ok(result);
+            APIResponse response = new(200, result);
+            return Ok(response);
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error in {EndpointName} for User ID: {UserId}", "GetUserById", userId);
-            return StatusCode(500, "Internal Server Error");
+            _logger.LogError(ex, "Error getting user with ID: {UserId}", userId);
+            APIResponse resp = new(500, "Internal Server Error", $"Error getting user with ID: {userId}");
+            return StatusCode(500, resp);
         }
     }
+
+    [HttpPut("{userId}")]
+    [Consumes(MediaTypeNames.Application.Json)]
+    public IActionResult UpdateUser(string userId, [FromBody] UserModel user)
+    {
+        try
+        {
+            // Validate
+            if (userId != user.Id)
+            {
+                APIResponse resp = new(400, "ID", "User ID mismatch.");
+                return BadRequest(resp);
+            }
+
+            // Process
+            UserModel? result = _processing.User_Update(user);
+
+            // Result
+            if (result == null)
+            {
+                APIResponse resp = new(500, "Internal Server Error", $"Error updating user with ID: {userId}");
+                return StatusCode(500, resp);
+            }
+
+            APIResponse response = new(200, result);
+            return Ok(response);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error updating user with ID: {UserId}", userId);
+            APIResponse resp = new(500, "Internal Server Error", $"Error updating user with ID: {userId}");
+            return StatusCode(500, resp);
+        }
+    }
+
 
 
 }

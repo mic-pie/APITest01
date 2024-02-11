@@ -1,6 +1,5 @@
-﻿using HelperLibrary.Models.API;
-using HelperLibrary.Models.Base;
-
+﻿using HelperLibrary.Models.v1.API;
+using HelperLibrary.Models.v1.DB;
 using Microsoft.Extensions.Logging;
 
 using System;
@@ -22,7 +21,7 @@ public partial class Processing
 
             return userModel;
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             _logger.LogError(ex, "Error in User_Find");
             return null;
@@ -38,6 +37,22 @@ public partial class Processing
             UserModel? userModel = _database.User_Get(userId);
 
             return userModel;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error in User_Get");
+            return null;
+        }
+    }
+
+    public UserModel? User_Update(UserModel user)
+    {
+        try
+        {
+            // Validate the user
+
+            // Call the database layer to update the user
+            return _database.User_Update(user);
         }
         catch (Exception ex)
         {

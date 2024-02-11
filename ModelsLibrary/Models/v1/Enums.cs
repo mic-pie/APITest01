@@ -1,4 +1,4 @@
-﻿namespace HelperLibrary.Enums;
+﻿namespace HelperLibrary.Models.v1;
 
 public enum FilePathType
 {

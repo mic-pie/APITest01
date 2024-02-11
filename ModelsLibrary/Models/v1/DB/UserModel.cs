@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HelperLibrary.Models.Base;
+namespace HelperLibrary.Models.v1.DB;
 
 public class UserModel
 {
@@ -14,4 +14,6 @@ public class UserModel
     public string Phone { get; set; }
     public string Email { get; set; }
     public string Password { get; set; }
+    public DateTime CreatedDate { get; set; }
+    public DateTime LastUpdate { get; set; }
 }

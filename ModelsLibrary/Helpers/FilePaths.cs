@@ -1,4 +1,4 @@
-﻿using HelperLibrary.Enums;
+﻿using HelperLibrary.Models.v1;
 
 namespace HelperLibrary.Helpers;
 

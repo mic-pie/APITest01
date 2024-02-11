@@ -7,32 +7,31 @@ using System.Threading.Tasks;
 
 using HelperLibrary.Helpers;
 
-namespace HelperLibrary.Models.API;
+namespace HelperLibrary.Models.v1.API;
 
 public class UserInfo
 {
     public string? Id { get; set; }
     public string? Email { get; set; }
 
-    public bool IsValid(out Dictionary<string, string> errors)
+    public bool IsValid(out List<Error> errors)
     {
-        errors = new Dictionary<string, string>();
+        errors = new();
 
         if (string.IsNullOrWhiteSpace(Email))
         {
-            errors.Add("Email", "Email is required");
+            errors.Add(new("Email", "Email is required"));
         }
         else if (!Mailing.IsEmailValid(Email))
         {
-            errors.Add("Email", "Email is not valid");
+            errors.Add(new("Email", "Email is not valid"));
         }
 
         if (string.IsNullOrWhiteSpace(Id))
         {
-            errors.Add("Id", "Id is required");
+            errors.Add(new("Id", "Id is required"));
         }
 
-        return errors.Count <= 1;
+        return errors.Count == 0;
     }
-
 }

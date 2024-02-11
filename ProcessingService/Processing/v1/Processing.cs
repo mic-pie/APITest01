@@ -1,5 +1,4 @@
 ﻿using DatabaseService.Data;
-using HelperLibrary.Models.Base;
 
 using Microsoft.Extensions.Logging;
 using System;
